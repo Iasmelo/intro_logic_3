@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hora de Codar 3</title>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Lato', sans-serif;
+            background: linear-gradient(135deg, #a4c8f0, #e3f2fd);
+            color: #333;
+            padding: 20px;
+            text-align: center;
+            background-image: url('https://images.unsplash.com/photo-1583421439155-bb70992a3299?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwzNjUyOXwwfDF8c2VhcmNofDEwfHxNYXRofGVufDB8fHx8MTY4Mjg1MTM3Mw&ixlib=rb-1.2.1&q=80&w=1080');
+            background-size: cover;
+            background-position: center;
+        }
+        h1 {
+            margin-bottom: 20px;
+            color: #004a87;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+        }
+        .container {
+            max-width: 600px;
+            margin: auto;
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 10px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+            padding: 20px;
+            backdrop-filter: blur(5px);
+        }
+        label, select {
+            margin: 10px 0;
+            font-weight: 600;
+        }
+        input, select, button {
+            margin: 10px 0;
+            padding: 12px;
+            width: calc(100% - 24px);
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            transition: border-color 0.3s;
+        }
+        input:focus, select:focus, button:focus {
+            border-color: #004a87;
+            outline: none;
+        }
+        button {
+            background-color: #004a87;
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        button:hover {
+            background-color: #003366;
+        }
+        .resultado {
+            margin-top: 20px;
+            font-weight: bold;
+            background-color: #f1f1f1;
+            padding: 10px;
+            border-radius: 5px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        footer {
+            margin-top: 30px;
+            font-size: 0.9em;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Calculadora</h1>
+        <label for="exercicio">Escolha um cálculo</label>
+        <select id="exercicio">
+            <option value="">Selecione...</option>
+            <option value="1">Divisão com Validação</option>
+            <option value="2">Bomba Relógio</option>
+            <option value="3">Números de 10 a 1</option>
+            <option value="4">Média entre 15 e 100</option>
+            <option value="5">Média entre Dois Números</option>
+            <option value="6">Média de Notas com Repetição</option>
+            <option value="7">Média das Notas</option>
+            <option value="8">Números de 1 a N</option>
+            <option value="9">Números Maiores que 100</option>
+            <option value="10">Tabuada de 1 a N</option>
+            <option value="11">Valores Entre 24 e 42</option>
+        </select>
+        
+        <button onclick="calcular()">Calcular</button>
+        <div class="resultado" id="resultado"></div>
+    </div>
+
+    <footer>
+        &copy; 2024 Iasmym Melo.
+    </footer>
+
+    <script>
+        function calcular() {
+            const exercicio = document.getElementById('exercicio').value;
+            let resultado = '';
+
+            switch (exercicio) {
+                case '1':
+                    let valor1 = parseFloat(prompt("Informe o primeiro valor:"));
+                    let valor2;
+                    do {
+                        valor2 = parseFloat(prompt("Informe o segundo valor (maior que zero):"));
+                    } while (valor2 <= 0);
+                    resultado = `Resultado da divisão: ${valor1 / valor2}`;
+                    break;
+
+                case '2':
+                    resultado = '';
+                    for (let i = 30; i >= 0; i--) {
+                        resultado += `${i}<br>`;
+                    }
+                    resultado += "EXPLOSÃO";
+                    break;
+
+                case '3':
+                    resultado = '';
+                    for (let i = 10; i >= 1; i--) {
+                        resultado += `${i}<br>`;
+                    }
+                    break;
+
+                case '4':
+                    let soma = 0;
+                    let contagem = 0;
+                    for (let i = 15; i <= 100; i++) {
+                        soma += i;
+                        contagem++;
+                    }
+                    resultado = `Média: ${soma / contagem}`;
+                    break;
+
+                case '5':
+                    let num1 = parseInt(prompt("Informe o primeiro número:"));
+                    let num2 = parseInt(prompt("Informe o segundo número:"));
+                    let soma2 = 0;
+                    let contagem2 = 0;
+                    for (let i = num1; i <= num2; i++) {
+                        soma2 += i;
+                        contagem2++;
+                    }
+                    resultado = `Média: ${soma2 / contagem2}`;
+                    break;
+
+                case '6':
+                    let continuar = "S";
+                    let aprovados = 0;
+                    while (continuar.toUpperCase() === "S") {
+                        let nota1 = parseFloat(prompt("Informe a primeira nota:"));
+                        let nota2 = parseFloat(prompt("Informe a segunda nota:"));
+                        let mediaFinal = (nota1 + nota2) / 2;
+                        if (mediaFinal >= 9.5) {
+                            aprovados++;
+                        }
+                        continuar = prompt("Calcular a média de outro aluno (Sim/Não)?");
+                    }
+                    resultado = `Quantidade de alunos aprovados: ${aprovados}`;
+                    break;
+
+                case '7':
+                    let notas = [];
+                    for (let cont = 0; cont < 6; cont++) {
+                        let nota;
+                        do {
+                            nota = parseFloat(prompt(`Informe a nota ${cont + 1} (0 a 10):`));
+                        } while (nota < 0 || nota > 10);
+                        notas.push(nota);
+                    }
+                    resultado = `Média das notas: ${notas.reduce((a, b) => a + b) / notas.length}`;
+                    break;
+
+                case '8':
+                    let N = parseInt(prompt("Informe um valor N (maior que zero):"));
+                    resultado = '';
+                    for (let i = 1; i <= N; i++) {
+                        resultado += `${i}<br>`;
+                    }
+                    break;
+
+                case '9':
+                    resultado = '';
+                    for (let i = 101; i <= 110; i++) {
+                        resultado += `${i}<br>`;
+                    }
+                    break;
+
+                case '10':
+                    let NTabuada = parseInt(prompt("Informe um valor N:"));
+                    resultado = '';
+                    for (let i = 1; i <= NTabuada; i++) {
+                        resultado += `Tabuada do ${i}:<br>`;
+                        for (let j = 1; j <= 10; j++) {
+                            resultado += `${i} x ${j} = ${i * j}<br>`;
+                        }
+                        resultado += '---<br>';
+                    }
+                    break;
+
+                case '11':
+                    let dentro = 0;
+                    let fora = 0;
+                    for (let i = 0; i < 10; i++) {
+                        let valor = parseInt(prompt(`Informe o valor ${i + 1}:`));
+                        if (valor >= 24 && valor <= 42) {
+                            dentro++;
+                        } else {
+                            fora++;
+                        }
+                    }
+                    resultado = `Valores entre 24 e 42: ${dentro}<br>Valores fora do intervalo: ${fora}`;
+                    break;
+
+                default:
+                    resultado = "Selecione um cálculo.";
+            }
+
+            document.getElementById('resultado').innerHTML = resultado;
+        }
+    </script>
+</body>
+</html>
